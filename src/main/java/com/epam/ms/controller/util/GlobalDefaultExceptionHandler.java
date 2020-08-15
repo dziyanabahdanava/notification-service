@@ -15,4 +15,10 @@ public class GlobalDefaultExceptionHandler extends ResponseEntityExceptionHandle
         ErrorData errorData = new ErrorData(e.getMessage(), e);
         return ResponseEntity.badRequest().body(errorData);
     }
+
+    @ExceptionHandler(value = Exception.class)
+    public ResponseEntity<ErrorData> baseErrorHandler(Exception e) {
+        ErrorData errorData = new ErrorData(e.getMessage(), e);
+        return ResponseEntity.status(500).body(errorData);
+    }
 }

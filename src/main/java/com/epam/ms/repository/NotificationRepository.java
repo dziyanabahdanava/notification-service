@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Repository
-public interface INotificationRepository extends CrudRepository<Notification, Long> {
+public interface NotificationRepository extends CrudRepository<Notification, Long> {
 //    @Modifying
 //    @Query("update Notification n set n.dateTime = ?1, n.message = ?2 where u.id = ?3")
 //    int update(Timestamp dateTime, String message, Long id);
