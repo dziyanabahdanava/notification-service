@@ -3,7 +3,6 @@ package com.epam.ms.controller;
 import com.epam.ms.repository.domain.Notification;
 import com.epam.ms.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +24,12 @@ public class NotificationController {
     private NotificationService service;
 
     @GetMapping
-    public List<Notification> getAll() {
-        return service.getAll();
+    public ResponseEntity<List<Notification>> getAll() {
+        return ResponseEntity.ok(service.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getById(@PathVariable Long id) {
+    public ResponseEntity<Notification> getById(@PathVariable String id) {
         Notification notification = service.findById(id);
         return isNull(notification)
                 ? ResponseEntity.notFound().build()
@@ -46,16 +45,16 @@ public class NotificationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody Notification notification) {
-        Long createdNotificationId = service.update(id, notification);
+    public ResponseEntity<Void> update(@PathVariable String id, @RequestBody Notification notification) {
+        String createdNotificationId = service.update(id, notification);
         return nonNull(createdNotificationId)
-                ? ResponseEntity.created(URI.create(String.format("/users/%s", createdNotificationId.toString()))).build()
+                ? ResponseEntity.created(URI.create(String.format("/users/%s", createdNotificationId))).build()
                 : ResponseEntity.noContent().build();
     }
 }

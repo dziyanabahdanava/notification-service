@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class NotificationService {
+public class NotificationService{
 
     @Autowired
     private NotificationRepository repository;
@@ -22,11 +22,11 @@ public class NotificationService {
         return (List)repository.findAll();
     }
 
-    public Notification findById(Long id) {
+    public Notification findById(String id) {
         return repository.findById(id).orElse(null);
     }
 
-    public Long update(Long id, Notification notification) {
+    public String update(String id, Notification notification) {
         Optional<Notification> existingNotification = repository.findById(id);
         if(existingNotification.isPresent()) {
             Notification currentNotification = existingNotification.get();
@@ -39,7 +39,7 @@ public class NotificationService {
         }
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         repository.deleteById(id);
     }
 }
