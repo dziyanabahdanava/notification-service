@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @Table(name = "notifications", schema = "notifications")
 public class Notification {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;

@@ -2,7 +2,9 @@ package com.epam.ms.controller;
 
 import com.epam.ms.repository.domain.Notification;
 import com.epam.ms.service.NotificationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +18,13 @@ import static java.util.Objects.nonNull;
  * REST controller exposes an endpoint to work with notifications
  * @author Dziyana Bahdanava
  */
+@Slf4j
 @RestController
 @RequestMapping("/notifications")
+@RequiredArgsConstructor
 public class NotificationController {
 
-    @Autowired
+    @NonNull
     private NotificationService service;
 
     @GetMapping
@@ -39,22 +43,29 @@ public class NotificationController {
     @PostMapping
     public ResponseEntity create(@RequestBody Notification notification) {
         Notification createdNotificationId = service.create(notification);
+        String id = createdNotificationId.getId();
+        log.info("A new notification is created: /notifications/" + id);
         return ResponseEntity.created(
-                URI.create(String.format("/users/%s", createdNotificationId.getId())))
+                URI.create(String.format("/notifications/%s", id)))
                 .build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
+        log.info("The notification with id " + id + " is deleted");
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable String id, @RequestBody Notification notification) {
-        String createdNotificationId = service.update(id, notification);
-        return nonNull(createdNotificationId)
-                ? ResponseEntity.created(URI.create(String.format("/users/%s", createdNotificationId))).build()
-                : ResponseEntity.noContent().build();
+        Notification createdNotification = service.update(id, notification);
+        if(nonNull(createdNotification)) {
+            log.info("The notification with id " + id + " is updated");
+            return ResponseEntity.noContent().build();
+        } else {
+            log.error("The notification with id " + id + " not found");
+            return ResponseEntity.notFound().build();
+        }
     }
 }

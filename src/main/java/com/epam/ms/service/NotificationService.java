@@ -2,16 +2,18 @@ package com.epam.ms.service;
 
 import com.epam.ms.repository.NotificationRepository;
 import com.epam.ms.repository.domain.Notification;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class NotificationService{
 
-    @Autowired
+    @NonNull
     private NotificationRepository repository;
 
     public Notification create(Notification notification) {
@@ -26,16 +28,14 @@ public class NotificationService{
         return repository.findById(id).orElse(null);
     }
 
-    public String update(String id, Notification notification) {
+    public Notification update(String id, Notification notification) {
         Optional<Notification> existingNotification = repository.findById(id);
         if(existingNotification.isPresent()) {
             Notification currentNotification = existingNotification.get();
             currentNotification.setMessage(notification.getMessage());
-            repository.save(currentNotification);
-            return null;
+            return repository.save(currentNotification);
         } else {
-            notification.setId(id);
-            return repository.save(notification).getId();
+            return null;
         }
     }
 

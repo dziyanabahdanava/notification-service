@@ -3,6 +3,7 @@ package com.epam.ms.controller.util;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +20,12 @@ public class GlobalDefaultExceptionHandler extends ResponseEntityExceptionHandle
         ErrorData errorData = new ErrorData(e.getMessage(), e);
         log.error("Validation for the bean failed", e);
         return ResponseEntity.badRequest().body(errorData);
+    }
+
+    @ExceptionHandler(value = EmptyResultDataAccessException.class)
+    public ResponseEntity<Void> constraintViolationErrorHandler(EmptyResultDataAccessException e) {
+        log.error("Resource not found", e);
+        return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(value = Exception.class)
