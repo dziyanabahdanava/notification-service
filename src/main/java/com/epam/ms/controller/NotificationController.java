@@ -41,10 +41,10 @@ public class NotificationController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody Notification notification) {
-        Notification createdNotificationId = service.create(notification);
-        String id = createdNotificationId.getId();
-        log.info("A new notification is created: /notifications/" + id);
+    public ResponseEntity<Void> create(@RequestBody Notification notification) {
+        Notification createdNotification = service.create(notification);
+        String id = createdNotification.getId();
+        log.info("A new notification is created: /notifications/{}", id);
         return ResponseEntity.created(
                 URI.create(String.format("/notifications/%s", id)))
                 .build();
@@ -53,7 +53,7 @@ public class NotificationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
-        log.info("The notification with id " + id + " is deleted");
+        log.info("The notification with id {} is deleted", id);
         return ResponseEntity.noContent().build();
     }
 
@@ -61,10 +61,10 @@ public class NotificationController {
     public ResponseEntity<Void> update(@PathVariable String id, @RequestBody Notification notification) {
         Notification createdNotification = service.update(id, notification);
         if(nonNull(createdNotification)) {
-            log.info("The notification with id " + id + " is updated");
+            log.info("The notification with id {} is updated", id);
             return ResponseEntity.noContent().build();
         } else {
-            log.error("The notification with id " + id + " not found");
+            log.error("The notification with id {} not found", id);
             return ResponseEntity.notFound().build();
         }
     }
