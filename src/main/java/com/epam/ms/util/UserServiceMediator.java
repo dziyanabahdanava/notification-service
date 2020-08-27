@@ -19,11 +19,16 @@ public class UserServiceMediator {
     private static final String GET_USERS_URL = "/users";
     private static final Integer USER_SERVICE_PORT = 8080;
 
-    public User getUser(String id) {
-        WebClient client = WebClient.builder()
+    private WebClient client;
+
+    public UserServiceMediator() {
+        client = WebClient.builder()
                 .baseUrl(String.format(HOST_URL, USER_SERVICE_PORT))
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
+    }
+
+    public User getUser(String id) {
         WebClient.RequestBodySpec request = client
                 .method(HttpMethod.GET)
                 .uri(String.format(GET_USER_URL, id));

@@ -1,8 +1,11 @@
 package com.epam.ms.handler.nutritionist;
 
-import com.epam.ms.handler.BaseEventHandler;
+import com.epam.ms.handler.EventHandler;
 import com.epam.ms.repository.domain.Event;
+import com.epam.ms.util.EmailSender;
+import com.epam.ms.util.UserServiceMediator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,9 +16,14 @@ import static com.epam.ms.handler.HandlerNameHolder.NUTRITION_PROGRAM_CREATED_HA
 
 @Slf4j
 @Component(NUTRITION_PROGRAM_CREATED_HANDLER)
-public class ProgramCreatedHandler extends BaseEventHandler {
+public class ProgramCreatedHandler implements EventHandler {
     private static final String SUBJECT = "A new nutrition program is available";
     private static final String MESSAGE = "A new nutrition program (%s calories) is available";
+
+    @Autowired
+    private EmailSender emailSender;
+    @Autowired
+    private UserServiceMediator mediator;
 
     @Override
     public void handle(Event event) {

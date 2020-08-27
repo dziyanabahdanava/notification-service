@@ -1,6 +1,6 @@
 package com.epam.ms.listener;
 
-import com.epam.ms.handler.BaseEventHandler;
+import com.epam.ms.handler.EventHandler;
 import com.epam.ms.repository.domain.Event;
 import com.epam.ms.util.Deserializer;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class RabbitMqListener {
     @Autowired
     private Deserializer deserializer;
     @Autowired
-    private Map<String, BaseEventHandler> handlerMap;
+    private Map<String, EventHandler> handlerMap;
 
     @RabbitListener(queues = USER_EVENTS_QUEUE)
     public void processUserEventsQueue(String json) {

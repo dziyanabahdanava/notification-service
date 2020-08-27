@@ -27,3 +27,9 @@ spring:
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
+rabbitmq:
+  host: localhost
+  nutrition:
+    queue: nutritionProgramsQueue
+  user:
+    queue: userEventsQueue
