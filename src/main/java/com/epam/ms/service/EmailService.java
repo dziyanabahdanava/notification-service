@@ -1,4 +1,4 @@
-package com.epam.ms.util;
+package com.epam.ms.service;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +11,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-public class EmailSender {
+public class EmailService {
     @NonNull
     private JavaMailSender emailSender;
 
     public void send(String to, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom("microservices.mp@mail.ru");
         mailMessage.setTo(to);
         mailMessage.setSubject(subject);
         mailMessage.setText(message);
