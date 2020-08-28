@@ -39,10 +39,6 @@ public class UserServiceMediator {
     }
 
     public List findSubscribedUsers() {
-        WebClient client = WebClient.builder()
-                .baseUrl(String.format(HOST_URL, USER_SERVICE_PORT))
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
         WebClient.RequestBodySpec request = client
                 .method(HttpMethod.GET)
                 .uri(GET_USERS_URL);

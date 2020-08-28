@@ -17,6 +17,7 @@ public class EmailSender {
 
     public void send(String to, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom("microservices.mp@mail.ru");
         mailMessage.setTo(to);
         mailMessage.setSubject(subject);
         mailMessage.setText(message);

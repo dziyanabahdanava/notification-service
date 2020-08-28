@@ -17,7 +17,7 @@ import static com.epam.ms.handler.HandlerNameHolder.NUTRITION_PROGRAM_UPDATED_HA
 @Slf4j
 @Component(NUTRITION_PROGRAM_UPDATED_HANDLER)
 public class ProgramUpdatedHandler implements EventHandler {
-    private static final String SUBJECT = "The program is improved";
+    private static final String SUBJECT = "We finalized the menu";
     private static final String MESSAGE = "The nutrition program %s is now available in an improved version";
 
     @Autowired
