@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8083
 spring:
   datasource:
     password: postgres
@@ -14,3 +14,27 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:liquibase/db.changelog.xml
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  mail:
+    host: smtp.mail.ru
+    port: 587
+    username: microservices.mp
+    password: 1111micro
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+#custom properties
+rabbitmq:
+  host: localhost
+  nutrition:
+    queue: nutritionProgramsQueue
+  user:
+    queue: userEventsQueue
+clients:
+  user-service:
+    url: http://localhost:8080

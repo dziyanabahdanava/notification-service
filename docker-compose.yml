@@ -1,5 +1,11 @@
 version: '3'
 services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
   postgres:
     image: postgres:latest
     environment:
