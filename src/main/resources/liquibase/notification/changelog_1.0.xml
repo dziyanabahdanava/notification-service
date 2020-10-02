@@ -8,6 +8,11 @@
         </sql>
     </changeSet>
     <changeSet author="Dziyana Bahdanava" id="create table Notifications">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="notifications"/>
+            </not>
+        </preConditions>
         <createTable tableName="notifications" schemaName="notifications">
             <column name ="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true"/>

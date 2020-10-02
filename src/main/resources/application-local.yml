@@ -4,7 +4,7 @@ spring:
   datasource:
     password: postgres
     platform: postgres
-    url: jdbc:postgresql://localhost:5448/postgres
+    url: jdbc:postgresql://host.docker.internal:5448/postgres
     username: postgres
   jpa:
     database: POSTGRESQL
@@ -15,7 +15,7 @@ spring:
     enabled: true
     change-log: classpath:liquibase/db.changelog.xml
   rabbitmq:
-    host: localhost
+    host: rabbitmq
     port: 5672
     username: guest
     password: guest
@@ -30,11 +30,11 @@ spring:
 
 #custom properties
 rabbitmq:
-  host: localhost
+  host: rabbitmq
   nutrition:
     queue: nutritionProgramsQueue
   user:
     queue: userEventsQueue
 clients:
   user-service:
-    url: http://localhost:8080
+    url: http://user-service:8080
