@@ -1,15 +1,32 @@
-version: '3'
+version: '3.5'
 services:
+
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:management
+    networks:
+      - ms
     ports:
       - "5672:5672"
       - "15672:15672"
+
   postgres:
     image: postgres:latest
+    networks:
+      - ms
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
     ports:
       - "5448:5432"
+
+  notification-service:
+    build: ./
+    networks:
+      - ms
+    ports:
+      - "8083:8083"
+
+networks:
+  ms:
+    name: ms

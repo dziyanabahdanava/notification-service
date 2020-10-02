@@ -1,0 +1,40 @@
+server:
+  port: 8083
+spring:
+  datasource:
+    password: postgres
+    platform: postgres
+    url: jdbc:postgresql://host.docker.internal:5448/postgres
+    username: postgres
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+  hibernate:
+    ddl-auto: none
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase/db.changelog.xml
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+  mail:
+    host: smtp.mail.ru
+    port: 587
+    username: microservices.mp
+    password: 1111micro
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+#custom properties
+rabbitmq:
+  host: rabbitmq
+  nutrition:
+    queue: nutritionProgramsQueue
+  user:
+    queue: userEventsQueue
+clients:
+  user-service:
+    url: http://user-service:8080
