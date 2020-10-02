@@ -20,17 +20,22 @@ lombok {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '5.5.2'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:2.2.4.RELEASE'
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation('org.postgresql:postgresql')
     implementation 'org.liquibase:liquibase-core'
+
     implementation 'org.springframework.amqp:spring-rabbit'
+
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    testCompile group: 'junit', name: 'junit', version: '5.5.2'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 }
 
 test {
